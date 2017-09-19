@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.teect.appmgr.mapper.BdDeviceMapper" >
+  <resultMap id="BaseResultMap" type="com.teect.appmgr.bean.BdDevice" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="imei" property="imei" jdbcType="VARCHAR" />
+    <result column="org" property="org" jdbcType="VARCHAR" />
+    <result column="man" property="man" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="VARCHAR" />
+    <result column="servicedate" property="servicedate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bd_device
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.teect.appmgr.bean.BdDevice" >
+    insert into bd_device (id, imei, org, 
+      man, phone, create_by, 
+      create_date, update_by, update_date, 
+      remarks, flag, servicedate
+      )
+    values (#{id,jdbcType=VARCHAR}, #{imei,jdbcType=VARCHAR}, #{org,jdbcType=VARCHAR}, 
+      #{man,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, #{servicedate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.teect.appmgr.bean.BdDevice" >
+    update bd_device
+    set imei = #{imei,jdbcType=VARCHAR},
+      org = #{org,jdbcType=VARCHAR},
+      man = #{man,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      servicedate = #{servicedate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id, imei, org, man, phone, create_by, create_date, update_by, update_date, 
+    remarks, flag, servicedate
+    from bd_device
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, imei, org, man, phone, create_by, create_date, update_by, update_date, 
+    remarks, flag, servicedate
+    from bd_device
+  </select>
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.teect.appmgr.mapper.BdServicelogMapper" >
+  <resultMap id="BaseResultMap" type="com.teect.appmgr.bean.BdServicelog" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="oldservicedate" property="oldservicedate" jdbcType="TIMESTAMP" />
+    <result column="newservicedate" property="newservicedate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bd_servicelog
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.teect.appmgr.bean.BdServicelog" >
+    insert into bd_servicelog (id, oldservicedate, newservicedate, 
+      create_by, create_date, update_by, 
+      update_date, remarks, flag
+      )
+    values (#{id,jdbcType=VARCHAR}, #{oldservicedate,jdbcType=TIMESTAMP}, #{newservicedate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.teect.appmgr.bean.BdServicelog" >
+    update bd_servicelog
+    set oldservicedate = #{oldservicedate,jdbcType=TIMESTAMP},
+      newservicedate = #{newservicedate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id, oldservicedate, newservicedate, create_by, create_date, update_by, update_date, 
+    remarks, flag
+    from bd_servicelog
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, oldservicedate, newservicedate, create_by, create_date, update_by, update_date, 
+    remarks, flag
+    from bd_servicelog
+  </select>
+</mapper>

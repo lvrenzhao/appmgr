@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="sysconfig.properties"/>
+    <classPathEntry location="/Users/lvrenzhao/IdeaProjects/casecomment/target/casecomment/WEB-INF/lib/mysql-connector-java-5.1.30.jar"/>
+    <context id="my" targetRuntime="MyBatis3Simple">
+        <commentGenerator>
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="${url}" userId="${username}"
+                        password="${password}"/>
+
+        <javaModelGenerator targetPackage="com.teect.appmgr.bean" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="com.teect.appmgr.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator targetPackage="com.teect.appmgr.mapper" targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="bd_device" domainObjectName="BdDevice"></table>
+        <table tableName="bd_loginlog" domainObjectName="BdLoginlog"></table>
+        <table tableName="bd_servicelog" domainObjectName="BdServicelog"></table>
+
+    </context>
+</generatorConfiguration>
