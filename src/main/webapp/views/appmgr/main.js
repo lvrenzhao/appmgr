@@ -39,7 +39,7 @@ $(function () {
             {label:'操作',name:'',width:130,sortable:false,align:'center',formatter:function(cellvalue,options,rowObject){
                 var trash = '<button class="btn btn-white btn-xs" type="button" onclick="trashOne(\'' + rowObject.id + '\')"><i class="fa fa-trash"></i></button>&nbsp;';
                 var edit = '<button class="btn btn-white btn-xs" type="button" onclick="eidtOne(\'' + rowObject.id + '\')"><i class="fa fa-pencil"></i></button>&nbsp;';
-                var service = '<button class="btn btn-primary btn-xs" type="button" onclick=""><i class="fa fa-diamond"></i> 设定服务截止日期</button>&nbsp;';
+                var service = '<button class="btn btn-primary btn-xs" type="button" onclick="setdate(\'' + rowObject.id + '\')"><i class="fa fa-diamond"></i> 设定服务截止日期</button>&nbsp;';
                 return trash+edit+service;
             }},
             {label : 'IEMI',name : "",width : 100,sortable : false,formatter:function(cellvalue,options,rowObject){
@@ -93,5 +93,20 @@ function trashOne(key) {
         layer.close(o);
     },function (o) {
         layer.close(o);
+    });
+}
+
+function setdate(key) {
+    layer.open({
+        type : 2,
+        shift : 5,
+        title : '设定新的服务截止日期',
+        shadeClose : false,
+        shade : 0.3,
+        area : ['40%', '60%'],
+        content : app.ctx + '/views/appmgr/setdate.jsp?id=' + key,
+        cancel : function(index) {
+            layer.close(index);
+        }
     });
 }
