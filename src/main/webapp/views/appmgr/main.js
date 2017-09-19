@@ -1,10 +1,18 @@
-var URL_TABLE1 = app.ctx+"/1.json";
+var URL_DELETE_DEVICE = app.ctx+"/deletedevice.do"
+
+var URL_TABLE1 = app.ctx+"/devicelist.do";
 $(function () {
     $("#btn_query").click(function () {
         $("#table1").jqGrid().setGridParam({
             url : URL_TABLE1,
             page : 1,
-            postData: {}
+            postData: {
+                imei:$("#form_ipt_imei").val(),
+                org:$("#form_ipt_sydw").val(),
+                man:$("#form_ipt_syr").val(),
+                phone:$("#form_ipt_sjhm").val(),
+                state:$("#form_sel_state").val()
+            }
         }).trigger("reloadGrid");
     });
     $("#btn_add").click(function () {
@@ -23,7 +31,13 @@ $(function () {
     });
     $("#table1").jqGrid({
         url : URL_TABLE1,
-        postData: {},
+        postData: {
+            imei:$("#form_ipt_imei").val(),
+            org:$("#form_ipt_sydw").val(),
+            man:$("#form_ipt_syr").val(),
+            phone:$("#form_ipt_sjhm").val(),
+            state:$("#form_sel_state").val()
+        },
         datatype : "json",
         mtype : "post",
         height : $('body').height() -165,
@@ -42,16 +56,16 @@ $(function () {
                 var service = '<button class="btn btn-primary btn-xs" type="button" onclick="setdate(\'' + rowObject.id + '\')"><i class="fa fa-diamond"></i> 设定服务截止日期</button>&nbsp;';
                 return trash+edit+service;
             }},
-            {label : 'IEMI',name : "",width : 100,sortable : false,formatter:function(cellvalue,options,rowObject){
+            {label : 'IEMI',name : "imei",width : 100,sortable : false,formatter:function(cellvalue,options,rowObject){
                 return '<a href="javascript:;" onclick="viewOne(\'' + rowObject.id + '\')">'+cellvalue+'</a>';
             }} ,
-            {label : '使用单位',name : "",width : 100,sortable : false,frozen : true},
-            {label : '使用人',name : "", width : 100, sortable : false,frozen : true},
-            {label : '手机号码',name : "",width : 100,sortable : false} ,
-            {label : '设备状态',name : "",width : 80,sortable : false},
-            {label : '注册日期',name : "", width : 80,sortable : false},
-            {label : '截止日期',name : "", width : 80,sortable : false},
-            {label : '剩余天数',name : "",width : 80,sortable : false}
+            {label : '使用单位',name : "org",width : 100,sortable : false,frozen : true},
+            {label : '使用人',name : "man", width : 100, sortable : false,frozen : true},
+            {label : '手机号码',name : "phone",width : 100,sortable : false,align:'right'} ,
+            {label : '设备状态',name : "state",width : 80,sortable : false,align:'center'},
+            {label : '注册日期',name : "zcrq", width : 80,sortable : false,align:'right'},
+            {label : '截止日期',name : "fwrq", width : 80,sortable : false,align:'right'},
+            {label : '剩余天数',name : "remainsDays",width : 80,sortable : false,align:'right'}
         ]
     });
 
@@ -89,7 +103,22 @@ function eidtOne(key) {
 
 function trashOne(key) {
     layer.confirm('确定删除该设备吗?',{btn:['确定','取消']},function (o) {
-        //todo
+        $.ajax({
+            type : 'POST',
+            url : URL_DELETE_DEVICE,
+            datatype : 'json',
+            data : {
+                id:key
+            },
+            success : function(data) {
+                if(data >= 1){
+                    layer.msg("设备删除成功!");
+                    $("#btn_query").trigger('click');
+                }else{
+                    layer.msg("程序异常，请联系系统管理员。");
+                }
+            }
+        });
         layer.close(o);
     },function (o) {
         layer.close(o);

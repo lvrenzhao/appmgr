@@ -10,7 +10,7 @@ public interface BdDeviceMapper {
 
     BdDevice selectByPrimaryKey(String id);
 
-    List<BdDevice> selectAll();
+    List<BdDevice> selectAll(BdDevice bean);
 
     int updateByPrimaryKey(BdDevice record);
 }

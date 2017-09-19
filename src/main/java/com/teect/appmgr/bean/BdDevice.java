@@ -27,6 +27,47 @@ public class BdDevice {
 
     private Date servicedate;
 
+    private String remainsDays;
+
+    private String zcrq;
+    private  String fwrq;
+
+    public String getZcrq() {
+        return zcrq;
+    }
+
+    public void setZcrq(String zcrq) {
+        this.zcrq = zcrq;
+    }
+
+    public String getFwrq() {
+
+        return fwrq;
+    }
+
+    public void setFwrq(String fwrq) {
+        this.fwrq = fwrq;
+    }
+
+    private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getRemainsDays() {
+
+        return remainsDays;
+    }
+
+    public void setRemainsDays(String remainsDays) {
+        this.remainsDays = remainsDays;
+    }
+
     public String getId() {
         return id;
     }

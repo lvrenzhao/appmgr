@@ -30,7 +30,7 @@
         </div>
         <div class="form_item wb15 fl reality pdt_10">
             <label>设备状态</label>
-            <select class="form-control input-sm">
+            <select class="form-control input-sm" id="form_sel_state">
                 <option value="">--请选择--</option>
                 <option value="1">正常</option>
                 <option value="2">过期</option>
