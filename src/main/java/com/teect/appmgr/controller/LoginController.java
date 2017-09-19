@@ -21,11 +21,6 @@ public class LoginController {
 		return "../login";
 	}
 
-	@RequestMapping("/index")
-	public String index(HttpSession httpSession) {
-		return "../index";
-	}
-
 	@RequestMapping("/checklogin")
 	public String checklogin(String username, String password, HttpSession httpSession) {
 		if (StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(password)) {
