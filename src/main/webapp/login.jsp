@@ -21,13 +21,14 @@
 
       </div>
 
-      <form class="m-t" role="form" action="index.jsp">
+      <form class="m-t" role="form" action="${ctx}/checklogin.do" style="margin-top: 30px">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="用户名" required="">
+          <input type="text" name="username" class="form-control" placeholder="用户名" required="">
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" placeholder="密码" required="">
+          <input type="password" name="password" class="form-control" placeholder="密码" required="">
         </div>
+        <span style="display:inline-block;margin:10px;margin-top: 0px;">${msg }</span>
         <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
 
       </form>

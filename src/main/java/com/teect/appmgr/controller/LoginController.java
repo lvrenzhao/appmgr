@@ -21,6 +21,10 @@ public class LoginController {
 		return "../login";
 	}
 
+	@RequestMapping("/index")
+	public String index(HttpSession httpSession) {
+		return "../index";
+	}
 
 	@RequestMapping("/checklogin")
 	public String checklogin(String username, String password, HttpSession httpSession) {
@@ -34,7 +38,7 @@ public class LoginController {
 					return "redirect:/index.do";
 				}else{
 					httpSession.setAttribute("msg", "账号被禁用，请联系系统管理员解禁。");//清空消息
-					return "redirect:/login.jsp";
+					return "redirect:/login.do";
 				}
 			} else {
 				httpSession.setAttribute("msg", "用户名或密码不正确");
@@ -43,7 +47,7 @@ public class LoginController {
 			httpSession.setAttribute("msg", "用户名或密码不能为空");
 		}
 		httpSession.setAttribute("username", username);
-		return "redirect:/login.jsp";
+		return "redirect:/login.do";
 	}
 
 
