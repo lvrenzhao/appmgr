@@ -72,7 +72,7 @@ public class BDController {
     @RequestMapping("/save")
     public @ResponseBody int save(BdDevice bean){
         if(StringUtils.isNoneBlank(bean.getId())){
-            return bdDeviceMapper.updateByPrimaryKey(bean);
+            return bdDeviceMapper.updateByIdSelective(bean);
         }else{
             bean.setId(IdGen.uuid());
             return bdDeviceMapper.insert(bean);

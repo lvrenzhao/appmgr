@@ -10,6 +10,8 @@ public interface BdDeviceMapper {
 
     BdDevice selectByPrimaryKey(String id);
 
+    int updateByIdSelective(BdDevice bean);
+
     List<BdDevice> selectAll(BdDevice bean);
 
     int updateByPrimaryKey(BdDevice record);

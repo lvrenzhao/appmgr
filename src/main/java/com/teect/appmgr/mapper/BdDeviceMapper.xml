@@ -49,6 +49,24 @@
       servicedate = #{servicedate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <update id="updateByIdSelective" parameterType="com.teect.appmgr.bean.BdDevice">
+    update bd_device
+    <set>
+      <if test="imei != null and imei != '' ">
+        imei = #{imei},
+      </if>
+      <if test="org != null and org != '' ">
+        org = #{org},
+      </if>
+      <if test="man != null and man != '' ">
+        man = #{man},
+      </if>
+      <if test="phone != null and phone != '' ">
+        phone = #{phone},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select id, imei, org, man, phone, create_by, create_date, update_by, update_date, 
     remarks, flag, servicedate
