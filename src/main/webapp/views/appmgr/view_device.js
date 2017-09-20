@@ -1,11 +1,13 @@
-var URL_TABLE1 = app.ctx+"/1.json";
+var URL_TABLE1 = app.ctx+"/table1.do";
 var URL_TABLE2 = app.ctx + "/table2.do";
 $(function () {
     var id = $.getUrlParam("id");
     //1.注册登录日志表格
     $("#table1").jqGrid({
         url : URL_TABLE1,
-        postData: {},
+        postData: {
+            id:id
+        },
         datatype : "json",
         mtype : "post",
         height : $('body').height() -135,
@@ -18,7 +20,7 @@ $(function () {
         viewrecords: true,
         colModel : [
             {label : 'id',name : "id",hidden : true,key : true,frozen : true},
-            {label : '登录时间',name : "",width : 100,sortable : false,frozen : true}
+            {label : '登录时间',name : "dlrq",width : 100,sortable : false,frozen : true}
         ]
     });
     //2.注册服务信息（续费记录）表格

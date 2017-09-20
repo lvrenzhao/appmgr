@@ -21,6 +21,16 @@ public class BdLoginlog {
 
     private String flag;
 
+    private String dlrq;
+
+    public String getDlrq() {
+        return dlrq;
+    }
+
+    public void setDlrq(String dlrq) {
+        this.dlrq = dlrq;
+    }
+
     public String getId() {
         return id;
     }

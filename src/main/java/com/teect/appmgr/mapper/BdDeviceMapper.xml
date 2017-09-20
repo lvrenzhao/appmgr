@@ -78,7 +78,7 @@
   </select>
   <select id="selectAll" resultMap="BaseResultMap" parameterType="com.teect.appmgr.bean.BdDevice" >
     select id, imei, org, man, phone, create_by, date_format(t.create_date, '%Y/%m/%d') zcrq, update_by, update_date,
-    remarks, flag, date_format(t.servicedate, '%Y/%m/%d') fwrq,TO_DAYS(t.servicedate) - TO_DAYS(t.create_date) remainsdays,CASE WHEN TO_DAYS(t.servicedate) - TO_DAYS(t.create_date) &gt; 0 THEN '正常' ELSE'过期' END state
+    remarks, flag,servicedate, date_format(t.servicedate, '%Y/%m/%d') fwrq,TO_DAYS(t.servicedate) - TO_DAYS(t.create_date) remainsdays,CASE WHEN TO_DAYS(t.servicedate) - TO_DAYS(t.create_date) &gt; 0 THEN '正常' ELSE'过期' END state
     from bd_device t
     <where>
       <if test="imei !=null and imei != '' ">

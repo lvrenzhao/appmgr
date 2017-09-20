@@ -10,6 +10,7 @@ import com.teect.appmgr.mapper.BdServicelogMapper;
 import com.teect.appmgr.mapper.UserMapper;
 import com.teect.appmgr.utils.IdGen;
 import com.teect.appmgr.utils.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,8 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.persistence.Id;
 import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class BDController {
@@ -38,6 +38,29 @@ public class BDController {
     @RequestMapping("/index")
     public String index(HttpSession httpSession) {
         return "../index";
+    }
+
+    @RequestMapping("/api")
+    public  @ResponseBody Map api(String imei){
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("now", DateFormatUtils.ISO_DATE_FORMAT.format(new Date()));
+
+        if(StringUtils.isNoneBlank(imei)){
+            BdDevice bean = new BdDevice();
+            bean.setImei(imei);
+            List<BdDevice> dvs = bdDeviceMapper.selectAll(bean);
+            if(dvs != null && dvs.size()>0){
+                BdLoginlog log = new BdLoginlog();
+                log.setDeviceid(dvs.get(0).getId());
+                log.setId(IdGen.uuid());
+                bdLoginlogMapper.insert(log);
+                if(dvs.get(0).getServicedate() != null){
+                    map.put("servicedate",DateFormatUtils.ISO_DATE_FORMAT.format(dvs.get(0).getServicedate()));
+                }
+            }
+        }
+
+        return map;
     }
 
     @RequestMapping("/changepwd")
@@ -72,9 +95,15 @@ public class BDController {
 
 
     @RequestMapping("/table2")
-    public @ResponseBody List<BdServicelog> devicelist(String id){
+    public @ResponseBody List<BdServicelog> table2(String id){
         return bdServicelogMapper.selectAll(id);
     }
+
+    @RequestMapping("/table1")
+    public @ResponseBody List<BdLoginlog> table1(String id){
+        return bdLoginlogMapper.selectAll(id);
+    }
+
 
     @RequestMapping("/save")
     public @ResponseBody int save(BdDevice bean){

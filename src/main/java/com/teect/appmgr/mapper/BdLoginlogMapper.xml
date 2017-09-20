@@ -21,8 +21,8 @@
       create_by, create_date, update_by, 
       update_date, remarks, flag
       )
-    values (#{id,jdbcType=VARCHAR}, #{deviceid,jdbcType=VARCHAR}, #{logindate,jdbcType=TIMESTAMP}, 
-      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{deviceid,jdbcType=VARCHAR},now(),
+      #{createBy,jdbcType=VARCHAR}, now(), #{updateBy,jdbcType=VARCHAR},
       #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}
       )
   </insert>
@@ -44,9 +44,10 @@
     from bd_loginlog
     where id = #{id,jdbcType=VARCHAR}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select id, deviceid, logindate, create_by, create_date, update_by, update_date, remarks, 
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id, deviceid,date_format(logindate, '%Y/%m/%d') dlrq, logindate, create_by, create_date, update_by, update_date, remarks,
     flag
     from bd_loginlog
+    where deviceid = #{id,jdbcType=VARCHAR}
   </select>
 </mapper>
