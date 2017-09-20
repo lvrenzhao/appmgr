@@ -45,7 +45,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select id, deviceid,date_format(logindate, '%Y/%m/%d') dlrq, logindate, create_by, create_date, update_by, update_date, remarks,
+    select id, deviceid,date_format(logindate, '%Y/%m/%d %H:%i:%S') dlrq, logindate, create_by, create_date, update_by, update_date, remarks,
     flag
     from bd_loginlog
     where deviceid = #{id,jdbcType=VARCHAR}
