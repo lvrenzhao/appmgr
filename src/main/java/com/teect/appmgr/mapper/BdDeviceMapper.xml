@@ -64,13 +64,16 @@
       <if test="phone != null and phone != '' ">
         phone = #{phone},
       </if>
+      <if test="servicedate != null and servicedate != '' ">
+        servicedate = #{servicedate},
+      </if>
     </set>
     where id = #{id}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select id, imei, org, man, phone, create_by, create_date, update_by, update_date, 
-    remarks, flag, servicedate
-    from bd_device
+    select id, imei, org, man, phone, create_by, date_format(t.create_date, '%Y/%m/%d') zcrq, update_by, update_date,
+    remarks, flag, date_format(t.servicedate, '%Y/%m/%d') fwrq,TO_DAYS(t.servicedate) - TO_DAYS(t.create_date) remainsdays,CASE WHEN TO_DAYS(t.servicedate) - TO_DAYS(t.create_date) &gt; 0 THEN '正常' ELSE'过期' END state
+    from bd_device t
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" parameterType="com.teect.appmgr.bean.BdDevice" >

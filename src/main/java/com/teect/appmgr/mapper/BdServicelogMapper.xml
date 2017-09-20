@@ -11,6 +11,9 @@
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="flag" property="flag" jdbcType="VARCHAR" />
+    <result column="yrq" property="yrq" jdbcType="VARCHAR" />
+    <result column="xrq" property="xrq" jdbcType="VARCHAR" />
+    <result column="czrq" property="czrq" jdbcType="VARCHAR" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from bd_servicelog
@@ -22,7 +25,7 @@
       update_date, remarks, flag
       )
     values (#{id,jdbcType=VARCHAR}, #{oldservicedate,jdbcType=TIMESTAMP}, #{newservicedate,jdbcType=TIMESTAMP}, 
-      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, now(), #{updateBy,jdbcType=VARCHAR},
       #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}
       )
   </insert>
@@ -44,9 +47,11 @@
     from bd_servicelog
     where id = #{id,jdbcType=VARCHAR}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select id, oldservicedate, newservicedate, create_by, create_date, update_by, update_date, 
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select id, date_format(t.oldservicedate, '%Y/%m/%d') yrq, date_format(t.newservicedate, '%Y/%m/%d') xrq, create_by, date_format(t.create_date, '%Y/%m/%d') czrq, update_by, update_date,
     remarks, flag
-    from bd_servicelog
+    from bd_servicelog t
+    where remarks = #{id,jdbcType=VARCHAR}
+    order by create_date desc
   </select>
 </mapper>

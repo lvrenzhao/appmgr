@@ -25,12 +25,30 @@ public class BdDevice {
 
     private String flag;
 
+    private Date oldservicedate;
     private Date servicedate;
 
     private String remainsDays;
 
     private String zcrq;
     private  String fwrq;
+    private String type;
+
+    public Date getOldservicedate() {
+        return oldservicedate;
+    }
+
+    public void setOldservicedate(Date oldservicedate) {
+        this.oldservicedate = oldservicedate;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getZcrq() {
         return zcrq;

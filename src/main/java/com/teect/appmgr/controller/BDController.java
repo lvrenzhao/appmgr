@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.persistence.Id;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.UUID;
@@ -69,9 +70,23 @@ public class BDController {
         return bdDeviceMapper.selectAll(bean);
     }
 
+
+    @RequestMapping("/table2")
+    public @ResponseBody List<BdServicelog> devicelist(String id){
+        return bdServicelogMapper.selectAll(id);
+    }
+
     @RequestMapping("/save")
     public @ResponseBody int save(BdDevice bean){
         if(StringUtils.isNoneBlank(bean.getId())){
+            if("SD".equals(bean.getType())){
+                BdServicelog log = new BdServicelog();
+                log.setId(IdGen.uuid());
+                log.setRemarks(bean.getId());
+                log.setOldservicedate(bean.getOldservicedate());
+                log.setNewservicedate(bean.getServicedate());
+                bdServicelogMapper.insert(log);
+            }
             return bdDeviceMapper.updateByIdSelective(bean);
         }else{
             bean.setId(IdGen.uuid());

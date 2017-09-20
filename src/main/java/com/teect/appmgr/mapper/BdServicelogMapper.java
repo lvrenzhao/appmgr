@@ -10,7 +10,7 @@ public interface BdServicelogMapper {
 
     BdServicelog selectByPrimaryKey(String id);
 
-    List<BdServicelog> selectAll();
+    List<BdServicelog> selectAll(String id);
 
     int updateByPrimaryKey(BdServicelog record);
 }

@@ -21,6 +21,36 @@ public class BdServicelog {
 
     private String flag;
 
+    private String yrq;
+    private String xrq;
+    private String czrq;
+
+    public String getXrq() {
+        return xrq;
+    }
+
+    public void setXrq(String xrq) {
+        this.xrq = xrq;
+    }
+
+    public String getYrq() {
+
+        return yrq;
+    }
+
+    public void setYrq(String yrq) {
+        this.yrq = yrq;
+    }
+
+    public String getCzrq() {
+
+        return czrq;
+    }
+
+    public void setCzrq(String czrq) {
+        this.czrq = czrq;
+    }
+
     public String getId() {
         return id;
     }
