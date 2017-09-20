@@ -1,5 +1,6 @@
 package com.teect.appmgr.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.teect.appmgr.bean.BdDevice;
 import com.teect.appmgr.bean.BdLoginlog;
 import com.teect.appmgr.bean.BdServicelog;
@@ -14,10 +15,13 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.alibaba.fastjson.JSONArray;
 
 import javax.annotation.Resource;
 import javax.persistence.Id;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -102,6 +106,40 @@ public class BDController {
     @RequestMapping("/table1")
     public @ResponseBody List<BdLoginlog> table1(String id){
         return bdLoginlogMapper.selectAll(id);
+    }
+
+    @RequestMapping("/import")
+    public @ResponseBody int importdata(String datas){
+        try {
+            List linklist = JSONArray.parseArray(datas);
+            if (linklist != null && linklist.size() > 0) {
+                for (int i = 0; i < linklist.size(); i++) {
+                    List item = (List) JSONArray.parse(String.valueOf(linklist.get(i)));
+
+                    BdDevice bean = new BdDevice();
+                    bean.setImei(String.valueOf(item.get(0) == null ? "" : item.get(0)));
+
+                    List<BdDevice> dvs = bdDeviceMapper.selectAll(bean);
+
+                    bean.setOrg(String.valueOf(item.get(1) == null ? "" : item.get(1)));
+                    bean.setMan(String.valueOf(item.get(2) == null ? "" : item.get(2)));
+                    bean.setPhone(String.valueOf(item.get(3) == null ? "" : item.get(3)));
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                    Date date = sdf.parse(String.valueOf(item.get(4) == null ? "" : item.get(4)));
+                    bean.setServicedate(date);
+                    if(dvs != null && dvs.size()>0){
+                        bean.setId(dvs.get(0).getId());
+                        bdDeviceMapper.updateByIdSelective(bean);
+                    }else{
+                        bean.setId(IdGen.uuid());
+                        bdDeviceMapper.insert(bean);
+                    }
+                }
+            }
+            return 1;
+        }catch (Exception ex){
+            return -1;
+        }
     }
 
 

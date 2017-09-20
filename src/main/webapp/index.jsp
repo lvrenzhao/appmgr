@@ -38,6 +38,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav x-menus">
                     <li class="active" data-menu-url="${ctx}/views/appmgr/main.jsp"><a href="#"><span class="fa fa-mobile-phone" style="font-size:16px"></span> 设备管理 <span class="sr-only">(current)</span></a></li>
+                    <li data-menu-url="${ctx}/views/import/main.jsp"><a href="#"><span class="fa fa-file-excel-o"> </span> 批量导入设备</a></li>
                     <li data-menu-url="${ctx}/views/pwdmgr/main.jsp"><a href="#"><span class="fa fa-user"> </span> 修改管理员密码</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
